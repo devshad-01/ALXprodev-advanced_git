@@ -5,6 +5,7 @@
 This repository demonstrates a complete Git-Flow workflow implementation with automated hooks. This guide serves as a comprehensive reference for implementing Git-Flow in any project.
 
 ## Table of Contents
+
 1. [Git-Flow Overview](#git-flow-overview)
 2. [Project Setup](#project-setup)
 3. [Feature Development Workflow](#feature-development-workflow)
@@ -18,15 +19,17 @@ This repository demonstrates a complete Git-Flow workflow implementation with au
 Git-Flow is a branching model that defines a strict branching model designed around project releases. It provides a robust framework for managing larger projects.
 
 ### Branch Types:
+
 - **main/master**: Production-ready code
 - **develop**: Integration branch for features
-- **feature/***: New features in development
-- **release/***: Preparation for production releases
-- **hotfix/***: Critical bug fixes for production
+- **feature/\***: New features in development
+- **release/\***: Preparation for production releases
+- **hotfix/\***: Critical bug fixes for production
 
 ## Project Setup
 
 ### Step 1: Repository Initialization
+
 ```bash
 # Clone or create your repository
 git clone https://github.com/devshad-01/ALXprodev-advanced_git.git
@@ -41,6 +44,7 @@ git flow init -d
 ```
 
 ### Step 2: Setup Remote Repository
+
 ```bash
 # Add remote origin if not already set
 git remote add origin https://github.com/your-username/your-repo.git
@@ -49,6 +53,7 @@ git remote add origin https://github.com/your-username/your-repo.git
 ## Feature Development Workflow
 
 ### Creating a Feature Branch
+
 ```bash
 # Start a new feature
 git flow feature start implement-login
@@ -57,6 +62,7 @@ git flow feature start implement-login
 ```
 
 ### Working on Features
+
 ```bash
 # Create your feature structure
 mkdir login-page
@@ -71,6 +77,7 @@ git push -u origin feature/implement-login
 ```
 
 ### Finishing a Feature
+
 ```bash
 # Finish the feature (merges into develop)
 git flow feature finish implement-login
@@ -82,6 +89,7 @@ git push origin develop
 ## Release Management
 
 ### Creating a Release
+
 ```bash
 # Start a release branch
 git flow release start 1.0.0
@@ -98,6 +106,7 @@ git push -u origin release/1.0.0
 ```
 
 ### Finishing a Release
+
 ```bash
 # Finish release (merges to main and develop, creates tag)
 git flow release finish 1.0.0
@@ -111,6 +120,7 @@ git push origin --tags
 ## Git Hooks Implementation
 
 ### Pre-commit Hook
+
 Location: `.git/hooks/pre-commit`
 
 **Purpose**: Ensures every directory has a README file before allowing commits.
@@ -145,6 +155,7 @@ exit 0
 ```
 
 ### Post-merge Hook
+
 Location: `.git/hooks/post-merge`
 
 **Purpose**: Logs all merges into the main/master branch.
@@ -161,7 +172,7 @@ if [ "$current_branch" = "main" ] || [ "$current_branch" = "master" ]; then
     merge_date=$(date)
     merge_author=$(git log -1 --pretty=format:'%an <%ae>')
     merge_message=$(git log -1 --pretty=format:'%s')
-    
+
     # Log the merge
     echo "=== MERGE INTO $current_branch ===" >> merge.log
     echo "Date: $merge_date" >> merge.log
@@ -170,12 +181,13 @@ if [ "$current_branch" = "main" ] || [ "$current_branch" = "master" ]; then
     echo "Message: $merge_message" >> merge.log
     echo "----------------------------------------" >> merge.log
     echo "" >> merge.log
-    
+
     echo "Post-merge hook: Logged merge into $current_branch branch"
 fi
 ```
 
 ### Making Hooks Executable
+
 ```bash
 chmod +x .git/hooks/pre-commit
 chmod +x .git/hooks/post-merge
@@ -184,6 +196,7 @@ chmod +x .git/hooks/post-merge
 ## Commands Reference
 
 ### Git-Flow Commands
+
 ```bash
 # Initialize Git-Flow
 git flow init [-d]  # -d for default settings
@@ -203,6 +216,7 @@ git flow hotfix finish <version>
 ```
 
 ### Standard Git Commands Used
+
 ```bash
 # Branch management
 git checkout -b <branch-name>
@@ -238,6 +252,7 @@ ALXprodev-advanced_git/
 ## Workflow Example
 
 ### Complete Feature Implementation
+
 ```bash
 # 1. Start feature
 git flow feature start user-authentication
@@ -260,6 +275,7 @@ git push origin develop
 ```
 
 ### Complete Release Cycle
+
 ```bash
 # 1. Start release
 git flow release start 1.1.0
@@ -292,14 +308,17 @@ git push origin --tags
 ## Troubleshooting
 
 ### Pre-commit Hook Issues
+
 - **Error**: "Directory missing README file"
 - **Solution**: Add README.md to the directory or exclude it from version control
 
 ### Merge Conflicts
+
 - **Prevention**: Keep feature branches small and merge frequently
 - **Resolution**: Use `git status` and resolve conflicts manually
 
 ### Hook Not Running
+
 - **Issue**: Hooks not executable
 - **Solution**: `chmod +x .git/hooks/hook-name`
 
